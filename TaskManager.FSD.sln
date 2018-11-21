@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.DataAccess", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.Model", "TaskManager.Model\TaskManager.Model.csproj", "{FB2D67DA-7410-4F67-B86D-105D00B42951}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{3FFF9C17-89D1-4629-A5B6-044F9CC41A48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager.DataAccess.Tests", "UnitTest\TaskManager.DataAccess.Tests\TaskManager.DataAccess.Tests.csproj", "{72AF40C5-4A55-49CE-BAD1-A41FCE84B164}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +37,16 @@ Global
 		{FB2D67DA-7410-4F67-B86D-105D00B42951}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB2D67DA-7410-4F67-B86D-105D00B42951}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB2D67DA-7410-4F67-B86D-105D00B42951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72AF40C5-4A55-49CE-BAD1-A41FCE84B164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72AF40C5-4A55-49CE-BAD1-A41FCE84B164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72AF40C5-4A55-49CE-BAD1-A41FCE84B164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72AF40C5-4A55-49CE-BAD1-A41FCE84B164}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{72AF40C5-4A55-49CE-BAD1-A41FCE84B164} = {3FFF9C17-89D1-4629-A5B6-044F9CC41A48}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {006A181A-4B14-4A13-91C3-825B91266F4A}

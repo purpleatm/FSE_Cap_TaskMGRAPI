@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using TaskManager.Model;
 
 namespace TaskManager.DataAccess
 {
-    public static class DataAccess
+    public class DataAccess
     {
         public static APIResponse AddUpdateTask(TaskModel objTaskModel)
         {
@@ -41,6 +42,87 @@ namespace TaskManager.DataAccess
             }
 
             return objAPIResponse;
+        }
+
+
+        /// <summary>
+        /// Add parent task
+        /// </summary>
+        /// <param name="parentTask">parentTask</param>
+        /// <returns>
+        /// True - Add transaction done.
+        /// False - No transaction.
+        /// </returns>
+        public static bool AddParentTask(ParentTask parentTask)
+        {
+            bool isAddSuccess = false;
+            if (parentTask != null)
+            {
+                APIResponse objAPIResponse = new APIResponse();
+                using (var context = new TaskManagerEntities())
+                {
+                    context.ParentTasks.Add(parentTask);
+                    context.SaveChanges();
+                    isAddSuccess = true;
+                }
+            }
+            return isAddSuccess;
+        }
+
+        /// <summary>
+        /// Update parent task
+        /// </summary>
+        /// <param name="parentTask">parentTask</param>
+        /// <returns>
+        /// True - Update transaction done.
+        /// False - No transaction.
+        /// </returns>
+        public static bool UpdateParentTask(ParentTask model)
+        {
+            bool isUpdateSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                var existingParent = _dbContext.ParentTasks
+                        .Where(p => p.Parent_ID == model.Parent_ID)
+                        .Include(p => p.Tasks)
+                        .SingleOrDefault();
+
+                if (existingParent != null)
+                {
+                    // Update parent
+                    _dbContext.Entry(existingParent).CurrentValues.SetValues(model);
+
+                    // Delete children
+                    foreach (var existingChild in existingParent.Tasks.ToList())
+                    {
+                        if (!model.Tasks.Any(c => c.Task_ID == existingChild.Task_ID))
+                            _dbContext.Tasks.Remove(existingChild);
+                    }
+
+                    // Update and Insert children
+                    foreach (var childModel in model.Tasks)
+                    {
+                        var existingChild = existingParent.Tasks
+                            .Where(c => c.Task_ID == childModel.Task_ID)
+                            .SingleOrDefault();
+
+                        if (existingChild != null)
+                        {
+                            // Update child
+                            childModel.Parent_ID = existingChild.Parent_ID;
+                            _dbContext.Entry(existingChild).CurrentValues.SetValues(childModel);
+                        }
+                        else
+                        {
+                            // Insert child
+                            existingParent.Tasks.Add(childModel);
+                        }
+                    }
+                    _dbContext.SaveChanges();
+                    isUpdateSuccess = true;
+                }
+            }
+            return isUpdateSuccess;
         }
     }
 }

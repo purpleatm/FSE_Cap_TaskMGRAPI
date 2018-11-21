@@ -1,5 +1,8 @@
 ﻿namespace TaskManager.Model
 {
+    /// <summary>
+    /// TaskModel
+    /// </summary>
     public class TaskModel
     {
         public System.Guid Task_ID { get; set; }

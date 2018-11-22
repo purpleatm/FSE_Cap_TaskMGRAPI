@@ -9,6 +9,8 @@
         public System.DateTime End_Date { get; set; }
         public int Priority { get; set; }
         public int Action { get; set; }
+
+        public ParentTaskModel Parent { get; set; }
     }
 
     public class ParentTaskModel

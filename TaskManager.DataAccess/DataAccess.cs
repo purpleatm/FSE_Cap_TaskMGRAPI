@@ -44,7 +44,6 @@ namespace TaskManager.DataAccess
             return objAPIResponse;
         }
 
-
         /// <summary>
         /// Add parent task
         /// </summary>
@@ -124,5 +123,16 @@ namespace TaskManager.DataAccess
             }
             return isUpdateSuccess;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public List<Task> SearchTask(Task task)
+        {
+            return new List<Task>();
+        }
+
     }
 }

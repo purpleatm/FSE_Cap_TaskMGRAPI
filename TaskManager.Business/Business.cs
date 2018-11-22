@@ -8,11 +8,27 @@ using TaskManager.DataAccess;
 
 namespace TaskManager.Business
 {
-    public static class Business
+    public class Business
     {
-        public static APIResponse AddUpdateTask(TaskModel objTaskModel)
+        public APIResponse AddUpdateTask(TaskModel objTaskModel)
         {
             return TaskManager.DataAccess.DataAccess.AddUpdateTask(objTaskModel);
         }
+
+
+        /// <summary>
+        /// Search task
+        /// </summary>
+        /// <param name="taskModel"></param>
+        /// <returns></returns>
+        public List<TaskModel> SearchTask(TaskModel taskModel)
+        {
+
+            return TaskManager.DataAccess.DataAccess
+
+            return new List<TaskModel>();
+        }
+
+
     }
 }

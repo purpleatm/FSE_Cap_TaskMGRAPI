@@ -120,7 +120,11 @@ namespace TaskManager.Business.Extenstion
     /// </summary>
     public static class BusinessExtention
     {
-
+        /// <summary>
+        /// ToGuid
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static Guid ToGuid(this string value)
         {
             Guid guid;

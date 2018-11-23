@@ -132,5 +132,36 @@ namespace TaskManager.DataAccess.Tests
                 Assert.Fail("API failed-Internal Error");
             }
         }
+
+        /// <summary>
+        /// Test method to check update end task
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public void PutEndTaskTestMethod()
+        {
+            var addRequest = new Model.TASK_DETAILS()
+            {
+                Task_ID = "F3BF627B-9EA7-4C9C-9A17-B876A2EC3CB7",
+                End_Date = DateTime.MinValue,
+            };
+            var response = TaskController.Put(addRequest);
+            if (response != null)
+            {
+                if (response.StatusCode.ToString().ToLower() == System.Net.HttpStatusCode.OK.ToString().ToLower())
+                {
+
+                }
+                else
+                {
+                    Assert.Fail("API failed-Status error");
+                }
+            }
+            else
+            {
+                Assert.Fail("API failed-Internal Error");
+            }
+        }
+
     }
 }

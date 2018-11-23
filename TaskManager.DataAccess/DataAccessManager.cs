@@ -74,7 +74,7 @@ namespace TaskManager.DataAccess
                     if (!(task.Start_Date != null && task.Start_Date != System.DateTime.MinValue))
                         task.Start_Date = existingTask.Start_Date;
 
-                    if (!(task.End_Date != null && task.End_Date != System.DateTime.MinValue))
+                    if (!(task.End_Date != null))
                         task.End_Date = existingTask.End_Date;
 
                     _dbContext.Entry(existingTask).CurrentValues.SetValues(task);

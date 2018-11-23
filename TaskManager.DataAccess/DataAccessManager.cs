@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -39,6 +40,21 @@ namespace TaskManager.DataAccess
         }
 
         /// <summary>
+        /// GetTask
+        /// </summary>
+        /// <returns>List of Task</returns>
+        public static Task GetTask(Guid taskId)
+        {
+            Task task = null;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                task = _dbContext.Tasks.SingleOrDefault(t => t.Task_ID == taskId);
+            }
+            return task;
+        }
+
+
+        /// <summary>
         /// Add Update task
         /// </summary>
         /// <param name="task">Task</param>
@@ -46,9 +62,54 @@ namespace TaskManager.DataAccess
         /// True - Update transaction done.
         /// False - No transaction.
         /// </returns>
-        public static bool AddUpdateTask(Task task)
+        public static bool AddTask(Task task)
         {
-            bool isAddorUpdateSuccess = false;
+            bool isAddSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                /// Check if task already exist
+                var existingTask = _dbContext.Tasks
+                    .Where(c => c.Task_ID == task.Task_ID)
+                    .SingleOrDefault();
+
+                if (existingTask == null)
+                {
+                    ///Add parent task if not exist
+                    if (task.Parent_ID != null && task.Parent_ID != System.Guid.Empty)
+                    {
+                        var existingParent = _dbContext.ParentTasks
+                        .Where(p => p.Parent_ID == task.Parent_ID)
+                        .SingleOrDefault();
+                        if (existingParent == null)
+                        {
+                            _dbContext.ParentTasks.Add(new ParentTask()
+                            {
+                                Parent_ID=(System.Guid)task.Parent_ID,
+                                Parent_Task= _dbContext.Tasks.SingleOrDefault(s=>s.Task_ID==task.Parent_ID ).Task1
+                            });
+                        }
+                    }
+                    /// Add task
+                    _dbContext.Tasks.Add(task);
+
+                    _dbContext.SaveChanges();
+                    isAddSuccess = true;
+                }
+            }
+            return isAddSuccess;
+        }
+
+        /// <summary>
+        /// Update task
+        /// </summary>
+        /// <param name="task">Task</param>
+        /// <returns>
+        /// True - Update transaction done.
+        /// False - No transaction.
+        /// </returns>
+        public static bool UpdateTask(Task task)
+        {
+            bool isUpdateSuccess = false;
             using (var _dbContext = new TaskManagerEntities())
             {
                 /// Check if task already exist
@@ -58,10 +119,24 @@ namespace TaskManager.DataAccess
 
                 if (existingTask != null)
                 {
-                    /// Update task
-                    if (!(task.Parent_ID != null && task.Parent_ID != System.Guid.Empty))
-                        task.Parent_ID = existingTask.Parent_ID;
+                    ///Add parent task if not exist
+                    if (task.Parent_ID != null && task.Parent_ID != System.Guid.Empty)
+                    {
+                        ///Add parent task if not exist
+                        var existingParent = _dbContext.ParentTasks
+                        .Where(p => p.Parent_ID == task.Parent_ID)
+                        .SingleOrDefault();
+                        if (existingParent == null)
+                        {
+                            _dbContext.ParentTasks.Add(new ParentTask()
+                            {
+                                Parent_ID = (System.Guid)task.Parent_ID,
+                                Parent_Task = task.Task1
+                            });
+                        }
+                    }
 
+                    ///Update task
                     if (!(task.Task_ID == null || task.Task_ID == System.Guid.Empty))
                         task.Task_ID = existingTask.Task_ID;
 
@@ -79,15 +154,10 @@ namespace TaskManager.DataAccess
 
                     _dbContext.Entry(existingTask).CurrentValues.SetValues(task);
                 }
-                else
-                {
-                    /// Insert task
-                    _dbContext.Tasks.Add(task);
-                }
                 _dbContext.SaveChanges();
-                isAddorUpdateSuccess = true;
+                isUpdateSuccess = true;
             }
-            return isAddorUpdateSuccess;
+            return isUpdateSuccess;
         }
 
 

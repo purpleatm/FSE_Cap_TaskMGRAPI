@@ -47,27 +47,57 @@ namespace TaskManager.Business
         }
 
         /// <summary>
-        /// Include task detail
+        /// Add task detail
         /// </summary>
         /// <param name="taskDetail"></param>
         /// <returns>Transcation status</returns>
-        public bool IncludeTaskDetail(TASK_DETAILS taskDetail)
+        public bool AddTaskDetail(TASK_DETAILS taskDetail)
         {
             Task task = new Task();
-            task.Parent_ID = taskDetail.Parent_ID.ToGuid();
-
-            if (taskDetail.Task_ID != null && taskDetail.Task_ID.ToGuid() != Guid.Empty)
-                task.Task_ID = taskDetail.Task_ID.ToGuid();
-            else
-                task.Task_ID = Guid.NewGuid();
-
+            if (taskDetail.Parent_ID != null)
+            {
+                task.Parent_ID = taskDetail.Parent_ID.ToGuid();
+                var parentTask = DataAccessManager.GetTask(taskDetail.Parent_ID.ToGuid());
+                if (parentTask == null)
+                {
+                    //Return invalid parent task
+                }
+            }
+            task.Task_ID = Guid.NewGuid();
             task.Task1 = taskDetail.Task;
             task.Start_Date = taskDetail.Start_Date;
             task.End_Date = taskDetail.End_Date;
             task.Priority = taskDetail.Priority;
-            return DataAccessManager.AddUpdateTask(task);
+            return DataAccessManager.AddTask(task);
         }
-        
+
+
+        /// <summary>
+        /// Include task detail
+        /// </summary>
+        /// <param name="taskDetail"></param>
+        /// <returns>Transcation status</returns>
+        public bool UpdateTaskDetail(TASK_DETAILS taskDetail)
+        {
+            Task task = new Task();
+            if (taskDetail.Parent_ID != null)
+            {
+                task.Parent_ID = taskDetail.Parent_ID.ToGuid();
+                var parentTask = DataAccessManager.GetTask(taskDetail.Parent_ID.ToGuid());
+                if (parentTask == null)
+                {
+                    //Return invalid parent task
+                }
+            }
+            task.Task_ID = taskDetail.Task_ID.ToGuid();            
+            task.Task1 = taskDetail.Task;
+            task.Start_Date = taskDetail.Start_Date;
+            task.End_Date = taskDetail.End_Date;
+            task.Priority = taskDetail.Priority;
+            return DataAccessManager.UpdateTask(task);
+        }
+
+
         /// <summary>
         /// Set end task status
         /// </summary>
@@ -78,7 +108,7 @@ namespace TaskManager.Business
             Task task = new Task();
             task.Task_ID = taskDetail.Task_ID.ToGuid();
             task.End_Date = DateTime.MinValue;
-            return DataAccessManager.AddUpdateTask(task);
+            return DataAccessManager.UpdateTask(task);
         }
     }
 }
@@ -115,8 +145,9 @@ namespace TaskManager.Business.Extenstion
         /// <returns></returns>
         public static bool IsAddTaskModelValid(this TASK_DETAILS task)
         {
-            if (!(task.Parent_ID !=null && task.Parent_ID.ToGuid().IsValidGUID()))
-                return false;
+            if (task.Parent_ID != null)
+                if (!task.Parent_ID.ToGuid().IsValidGUID())
+                    return false;
 
             if (string.IsNullOrEmpty(task.Task))
                 return false;
@@ -143,8 +174,11 @@ namespace TaskManager.Business.Extenstion
             if (task.Parent_ID != null)
                 if (!task.Parent_ID.ToGuid().IsValidGUID())
                     return false;
-            
-            if (string.IsNullOrEmpty(task.Task))
+
+            if (!(task.Task_ID != null && task.Task_ID.ToGuid() != Guid.Empty && task.Task_ID.ToGuid().IsValidGUID()))
+                return false;
+
+                if (string.IsNullOrEmpty(task.Task))
                 return false;
 
             if (task.Priority <= 0)

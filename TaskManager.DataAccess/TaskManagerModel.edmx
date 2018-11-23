@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TaskManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TaskManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ParentTask">
           <Key>
             <PropertyRef Name="Parent_ID" />
@@ -17,14 +17,14 @@
             <PropertyRef Name="Task_ID" />
           </Key>
           <Property Name="Task_ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Parent_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Parent_ID" Type="uniqueidentifier" />
           <Property Name="Task" Type="varchar(max)" Nullable="false" />
           <Property Name="Start_Date" Type="datetime" Nullable="false" />
           <Property Name="End_Date" Type="datetime" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Task_ParentTask">
-          <End Role="ParentTask" Type="Self.ParentTask" Multiplicity="1" />
+          <End Role="ParentTask" Type="Self.ParentTask" Multiplicity="0..1" />
           <End Role="Task" Type="Self.Task" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ParentTask">
@@ -43,34 +43,41 @@
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TaskManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TaskManagerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ParentTasks" EntityType="TaskManagerModel.ParentTask" />
+          <EntitySet Name="Tasks" EntityType="TaskManagerModel.Task" />
+          <AssociationSet Name="FK_Task_ParentTask" Association="TaskManagerModel.FK_Task_ParentTask">
+            <End Role="ParentTask" EntitySet="ParentTasks" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ParentTask">
           <Key>
             <PropertyRef Name="Parent_ID" />
           </Key>
           <Property Name="Parent_ID" Type="Guid" Nullable="false" />
-          <Property Name="Parent_Task" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_ParentTask" FromRole="ParentTask" ToRole="Task" />
+          <Property Name="Parent_Task" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tasks" Relationship="TaskManagerModel.FK_Task_ParentTask" FromRole="ParentTask" ToRole="Task" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
             <PropertyRef Name="Task_ID" />
           </Key>
           <Property Name="Task_ID" Type="Guid" Nullable="false" />
-          <Property Name="Parent_ID" Type="Guid" Nullable="false" />
-          <Property Name="Task1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Parent_ID" Type="Guid" />
+          <Property Name="Task1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Start_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="End_Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ParentTask" Relationship="Self.FK_Task_ParentTask" FromRole="Task" ToRole="ParentTask" />
+          <NavigationProperty Name="ParentTask" Relationship="TaskManagerModel.FK_Task_ParentTask" FromRole="Task" ToRole="ParentTask" />
         </EntityType>
         <Association Name="FK_Task_ParentTask">
-          <End Role="ParentTask" Type="Self.ParentTask" Multiplicity="1" />
-          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <End Type="TaskManagerModel.ParentTask" Role="ParentTask" Multiplicity="0..1" />
+          <End Type="TaskManagerModel.Task" Role="Task" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ParentTask">
               <PropertyRef Name="Parent_ID" />
@@ -80,14 +87,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TaskManagerEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ParentTasks" EntityType="Self.ParentTask" />
-          <EntitySet Name="Tasks" EntityType="Self.Task" />
-          <AssociationSet Name="FK_Task_ParentTask" Association="Self.FK_Task_ParentTask">
-            <End Role="ParentTask" EntitySet="ParentTasks" />
-            <End Role="Task" EntitySet="Tasks" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -97,20 +96,20 @@
           <EntitySetMapping Name="ParentTasks">
             <EntityTypeMapping TypeName="TaskManagerModel.ParentTask">
               <MappingFragment StoreEntitySet="ParentTask">
-                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
                 <ScalarProperty Name="Parent_Task" ColumnName="Parent_Task" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="TaskManagerModel.Task">
               <MappingFragment StoreEntitySet="Task">
-                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
-                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
-                <ScalarProperty Name="Task1" ColumnName="Task" />
-                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
-                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="Task1" ColumnName="Task" />
+                <ScalarProperty Name="Parent_ID" ColumnName="Parent_ID" />
+                <ScalarProperty Name="Task_ID" ColumnName="Task_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

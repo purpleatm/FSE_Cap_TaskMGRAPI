@@ -90,7 +90,7 @@ namespace TaskManager.FSD.Controllers
                     {
                         if (request.IsUpdateTaskModelValid())
                         {
-                            bool transactionStatus = TaskApi.IncludeTaskDetail(request);
+                            bool transactionStatus = TaskApi.UpdateTaskDetail(request);
                             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, transactionStatus, errors);
                         }
                     }
@@ -98,7 +98,7 @@ namespace TaskManager.FSD.Controllers
                     {
                         if (request.IsAddTaskModelValid())
                         {
-                            bool transactionStatus = TaskApi.IncludeTaskDetail(request);
+                            bool transactionStatus = TaskApi.AddTaskDetail(request);
                             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, transactionStatus, errors);
                         }
                     }

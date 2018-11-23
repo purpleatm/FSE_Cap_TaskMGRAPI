@@ -15,7 +15,7 @@ namespace TaskManager.DataAccess
     public partial class Task
     {
         public System.Guid Task_ID { get; set; }
-        public System.Guid Parent_ID { get; set; }
+        public Nullable<System.Guid> Parent_ID { get; set; }
         public string Task1 { get; set; }
         public System.DateTime Start_Date { get; set; }
         public System.DateTime End_Date { get; set; }

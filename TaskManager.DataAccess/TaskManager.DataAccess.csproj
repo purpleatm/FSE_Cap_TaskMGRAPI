@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccess.cs" />
+    <Compile Include="DataAccessManager.cs" />
     <Compile Include="ParentTask.cs">
       <DependentUpon>TaskManagerModel.tt</DependentUpon>
     </Compile>

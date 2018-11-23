@@ -38,9 +38,9 @@ namespace TaskManager.FSD.Controllers
         {
         }
 
-        public APIResponse AddUpdateTask(TaskModel objTaskModel)
-        {
-            return new TaskManager.Business.Business().AddUpdateTask(objTaskModel);
-        }
+        //public APIResponse AddUpdateTask(TaskModel objTaskModel)
+        //{
+        //    //return new TaskManager.Business.Business().AddUpdateTask(objTaskModel);
+        //}
     }
 }

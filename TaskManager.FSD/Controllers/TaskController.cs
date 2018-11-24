@@ -8,9 +8,12 @@ using TaskManager.FSD.Core.ApiHelper.Response;
 using TaskManager.Model;
 using TaskManager.Business;
 using TaskManager.Business.Extenstion;
+using System.Web.Http.Cors;
 
 namespace TaskManager.FSD.Controllers
 {
+
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class TaskController : ApiController
     {
         private TaskApi TaskApi { get; set; }

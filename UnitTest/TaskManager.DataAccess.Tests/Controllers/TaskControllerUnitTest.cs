@@ -75,10 +75,10 @@ namespace TaskManager.DataAccess.Tests
         {
             var addRequest = new Model.TASK_DETAILS()
             {
-                Task ="FirstTask",
+                Task ="SecondTask",
                 Start_Date=DateTime.Now,
                 End_Date=DateTime.Now.AddMonths(2),
-                Priority=2
+                Priority=3
             };
             var response = TaskController.Post(addRequest);
             if (response != null)
@@ -107,8 +107,8 @@ namespace TaskManager.DataAccess.Tests
         {
             var addRequest = new Model.TASK_DETAILS()
             {
-                Parent_ID = Guid.Parse("38FE07D7-4A67-4AC5-AAB1-73F7D528ABAC").ToString(),
-                Task = "second task",
+                Parent_ID = Guid.Parse("FD202363-BDE4-42D9-B52C-A1AC6A5EF084").ToString(),
+                Task = "second task sub",
                 Start_Date = DateTime.Now,
                 End_Date = DateTime.Now.AddMonths(2),
                 Priority = 2

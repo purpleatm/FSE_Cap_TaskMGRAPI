@@ -10,7 +10,7 @@
             <PropertyRef Name="Parent_ID" />
           </Key>
           <Property Name="Parent_ID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Parent_Task" Type="varchar(max)" Nullable="false" />
+          <Property Name="Parent_Task" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -60,7 +60,7 @@
             <PropertyRef Name="Parent_ID" />
           </Key>
           <Property Name="Parent_ID" Type="Guid" Nullable="false" />
-          <Property Name="Parent_Task" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Parent_Task" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Tasks" Relationship="TaskManagerModel.FK_Task_ParentTask" FromRole="ParentTask" ToRole="Task" />
         </EntityType>
         <EntityType Name="Task">

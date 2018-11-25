@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using TaskManager.FSD.Controllers;
+using Task.API.Controllers;
 
 namespace TaskManager.DataAccess.Tests
 {
@@ -21,7 +21,7 @@ namespace TaskManager.DataAccess.Tests
         [Test]
         public void GetParentsTestMethod()
         {
-            var response = TaskController.GetParents();
+            var response = TaskController.Get();
             if (response != null)
             {
                 if (response.StatusCode.ToString().ToLower() == System.Net.HttpStatusCode.OK.ToString().ToLower())

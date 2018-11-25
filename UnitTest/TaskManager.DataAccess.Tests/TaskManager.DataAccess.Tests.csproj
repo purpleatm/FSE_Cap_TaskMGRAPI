@@ -58,8 +58,9 @@
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Web.Http">
-      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +72,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Task.API\Task.API.csproj">
+      <Project>{5d92ffcc-340d-413e-8513-575056571b5d}</Project>
+      <Name>Task.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TaskManager.Business\TaskManager.Business.csproj">
       <Project>{fd9aa2a6-1b1c-45cc-8389-c81076e984e3}</Project>
       <Name>TaskManager.Business</Name>
@@ -78,10 +83,6 @@
     <ProjectReference Include="..\..\TaskManager.DataAccess\TaskManager.DataAccess.csproj">
       <Project>{6ae0a1aa-3775-4209-a32c-c8eca1eaac3e}</Project>
       <Name>TaskManager.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TaskManager.FSD\TaskManager.FSD.csproj">
-      <Project>{498945e3-f081-42fc-b01b-d270ad85ea58}</Project>
-      <Name>TaskManager.FSD</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TaskManager.Model\TaskManager.Model.csproj">
       <Project>{fb2d67da-7410-4f67-b86d-105d00b42951}</Project>

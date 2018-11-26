@@ -4,10 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using TaskManager.Model;
-using TaskManager.Business;
 
-namespace TaskManager.FSD.Controllers
+namespace Task.API.Controllers
 {
     public class ValuesController : ApiController
     {
@@ -36,11 +34,6 @@ namespace TaskManager.FSD.Controllers
         // DELETE api/values/5
         public void Delete(int id)
         {
-        }
-
-        public APIResponse AddUpdateTask(TaskModel objTaskModel)
-        {
-            return TaskManager.Business.Business.AddUpdateTask(objTaskModel);
         }
     }
 }

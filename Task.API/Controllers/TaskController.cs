@@ -133,7 +133,7 @@ namespace Task.API.Controllers
             this.Request = new HttpRequestMessage();
             this.Request.SetConfiguration(new HttpConfiguration());
             try
-            {
+            { 
                 if (request != null)
                 {
                     if (!request.Task_ID.ToGuid().IsValidGUID())

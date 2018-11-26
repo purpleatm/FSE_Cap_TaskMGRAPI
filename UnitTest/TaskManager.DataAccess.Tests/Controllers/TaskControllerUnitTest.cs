@@ -75,9 +75,9 @@ namespace TaskManager.DataAccess.Tests
         {
             var addRequest = new Model.TASK_DETAILS()
             {
-                Task ="SecondTask",
-                Start_Date=DateTime.Now,
-                End_Date=DateTime.Now.AddMonths(2),
+                Task ="ThridTask",
+                Start_Date=DateTime.Now.ToString(),
+                End_Date=DateTime.Now.AddMonths(2).ToString(),
                 Priority=3
             };
             var response = TaskController.Post(addRequest);
@@ -107,10 +107,10 @@ namespace TaskManager.DataAccess.Tests
         {
             var addRequest = new Model.TASK_DETAILS()
             {
-                Parent_ID = Guid.Parse("FD202363-BDE4-42D9-B52C-A1AC6A5EF084").ToString(),
+                Parent_ID = Guid.Parse("0F3D2B64-A0A0-4F16-9AF5-15F0EBC717B7").ToString(),
                 Task = "second task sub",
-                Start_Date = DateTime.Now,
-                End_Date = DateTime.Now.AddMonths(2),
+                Start_Date = DateTime.Now.ToString(),
+                End_Date = DateTime.Now.AddMonths(2).ToString(),
                 Priority = 2
             };
             var response = TaskController.Post(addRequest);
@@ -140,11 +140,10 @@ namespace TaskManager.DataAccess.Tests
         {
             var addRequest = new Model.TASK_DETAILS()
             {
-                //Parent_ID = Guid.Parse("38FE07D7-4A67-4AC5-AAB1-73F7D528ABAC").ToString(),
-                Task_ID= "38FE07D7-4A67-4AC5-AAB1-73F7D528ABAC",
-                Task = "first task-modifed",
-                Start_Date = DateTime.Now,
-                End_Date = DateTime.Now.AddMonths(2),
+                Task_ID= "E8D8E70B-0A9C-48BA-8E0A-5868301B9604",
+                Task = "first first task sub",
+                Start_Date = DateTime.Now.ToString(),
+                End_Date = DateTime.Now.AddMonths(2).ToString(),
                 Priority = 3
             };
             var response = TaskController.Post(addRequest);
@@ -175,7 +174,7 @@ namespace TaskManager.DataAccess.Tests
             var addRequest = new Model.TASK_DETAILS()
             {
                 Task_ID = "F3BF627B-9EA7-4C9C-9A17-B876A2EC3CB7",
-                End_Date = DateTime.MinValue,
+                End_Date = DateTime.MinValue.ToString()
             };
             var response = TaskController.Put(addRequest);
             if (response != null)

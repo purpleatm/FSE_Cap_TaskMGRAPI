@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using TaskManager.Business.Extenstion;
 using TaskManager.DataAccess;
@@ -38,8 +39,8 @@ namespace TaskManager.Business
                     Parent_ID = t.Parent_ID.ToString(),
                     Task_ID= t.Task_ID.ToString(),
                     Task=t.Task1,
-                    Start_Date=t.Start_Date,
-                    End_Date=t.End_Date,
+                    Start_Date=t.Start_Date.ToCustomDate(),
+                    End_Date=t.End_Date.ToCustomDate(),
                     IsActive=t.End_Date.IsActiveTask(),
                     Priority=t.Priority
                 }).ToList();
@@ -65,8 +66,8 @@ namespace TaskManager.Business
             }
             task.Task_ID = Guid.NewGuid();
             task.Task1 = taskDetail.Task;
-            task.Start_Date = taskDetail.Start_Date;
-            task.End_Date = taskDetail.End_Date;
+            task.Start_Date = DateTime.Parse(taskDetail.Start_Date);
+            task.End_Date =DateTime.Parse(taskDetail.End_Date);
             task.Priority = taskDetail.Priority;
             return DataAccessManager.AddTask(task);
         }
@@ -91,8 +92,8 @@ namespace TaskManager.Business
             }
             task.Task_ID = taskDetail.Task_ID.ToGuid();            
             task.Task1 = taskDetail.Task;
-            task.Start_Date = taskDetail.Start_Date;
-            task.End_Date = taskDetail.End_Date;
+            task.Start_Date = taskDetail.Start_Date.ToDateTime();
+            task.End_Date = taskDetail.End_Date.ToDateTime();
             task.Priority = taskDetail.Priority;
             return DataAccessManager.UpdateTask(task);
         }
@@ -101,14 +102,13 @@ namespace TaskManager.Business
         /// <summary>
         /// Set end task status
         /// </summary>
-        /// <param name="objGET_TASK_DETAILS_Result"></param>
+        /// <param name="taskDetail"></param>
         /// <returns></returns>
         public bool UpdateEndTask(TASK_DETAILS taskDetail)
         {
             Task task = new Task();
             task.Task_ID = taskDetail.Task_ID.ToGuid();
-            task.End_Date = DateTime.MinValue;
-            return DataAccessManager.UpdateTask(task);
+            return DataAccessManager.UpdateEndTask(task);
         }
     }
 }
@@ -120,6 +120,31 @@ namespace TaskManager.Business.Extenstion
     /// </summary>
     public static class BusinessExtention
     {
+
+        /// <summary>
+        /// ToCustomDate
+        /// </summary>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public static string ToCustomDate(this DateTime datetime)
+        {
+            string pattern = "MM/dd/yyyy";
+            return datetime.ToString(pattern, CultureInfo.InvariantCulture);
+        }
+
+
+        /// <summary>
+        /// ToDateTime
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string value)
+        {
+            DateTime dateTime;
+            DateTime.TryParse(value, out dateTime);
+            return dateTime;
+        }
+
         /// <summary>
         /// ToGuid
         /// </summary>
@@ -139,10 +164,9 @@ namespace TaskManager.Business.Extenstion
         /// <returns></returns>
         public static int IsActiveTask(this DateTime dateTime)
         {
-            return Convert.ToInt32(!dateTime.Equals(System.DateTime.MinValue));
+            return Convert.ToInt32(dateTime >= System.DateTime.Now);
         }
 
-        /// <summary>
         /// IsAddTaskModelValid
         /// </summary>
         /// <param name="task"></param>
@@ -159,10 +183,10 @@ namespace TaskManager.Business.Extenstion
             if (task.Priority <= 0)
                 return false;
 
-            if (!(task.Start_Date != null && task.Start_Date != System.DateTime.MinValue))
+            if (!(task.Start_Date != null && task.Start_Date.ToDateTime() != System.DateTime.MinValue))
                 return false;
 
-            if (!(task.End_Date != null && task.End_Date != System.DateTime.MinValue))
+            if (!(task.End_Date != null && task.End_Date.ToDateTime() != System.DateTime.MinValue))
                 return false;
 
             return true;
@@ -188,10 +212,10 @@ namespace TaskManager.Business.Extenstion
             if (task.Priority <= 0)
                 return false;
 
-            if (!(task.Start_Date != null && task.Start_Date != System.DateTime.MinValue))
+            if (!(task.Start_Date != null && task.Start_Date.ToDateTime() != System.DateTime.MinValue))
                 return false;
 
-            if (!(task.End_Date != null && task.End_Date != System.DateTime.MinValue))
+            if (!(task.End_Date != null && task.End_Date.ToDateTime() != System.DateTime.MinValue))
                 return false;
 
             return true;

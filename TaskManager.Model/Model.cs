@@ -7,8 +7,8 @@ namespace TaskManager.Model
         public string Task_ID { get; set; }
         public string Parent_ID { get; set; }
         public string Task { get; set; }
-        public DateTime Start_Date { get; set; }
-        public DateTime End_Date { get; set; }
+        public string Start_Date { get; set; }
+        public string End_Date { get; set; }
         public int Priority { get; set; }
         public int IsActive { get; set; }
     }

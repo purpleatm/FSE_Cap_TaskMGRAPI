@@ -2,6 +2,9 @@
 
 namespace TaskManager.Model
 {
+    /// <summary>
+    /// TASK_DETAILS
+    /// </summary>
     public class TASK_DETAILS
     {
         public string Task_ID { get; set; }
@@ -13,6 +16,9 @@ namespace TaskManager.Model
         public int IsActive { get; set; }
     }
 
+    /// <summary>
+    /// PARENT_TASK
+    /// </summary>
     public class PARENT_TASK
     {
         public string Parent_ID { get; set; }

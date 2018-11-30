@@ -2,12 +2,27 @@
 using System.Net;
 using NUnit.Framework;
 using Task.API.Controllers;
+using Task.API;
 
 namespace TaskManager.DataAccess.Tests
 {
     [TestFixture]
     public class TaskControllerUnitTest
     {
+
+        [Test]
+        public void AppStartTestMethod()
+        {
+            var webApiApplication = new WebApiApplication();
+        }
+
+        [Test]
+        public void WebApiConfigRegisterTestMethod()
+        {
+            var conifg = new System.Web.Http.HttpConfiguration();
+            WebApiConfig.Register(conifg);
+        }
+
         [Test]
         public void GetParentsTestMethod()
         {
@@ -83,6 +98,9 @@ namespace TaskManager.DataAccess.Tests
             Assert.NotNull(TaskController.Put(addRequest), "API failed-Internal Error");
             Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.Put(addRequest).StatusCode.ToString().ToLower(), "API failed-Status error");
         }
+
+
+        
 
     }
 }

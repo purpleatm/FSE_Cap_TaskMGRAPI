@@ -20,10 +20,10 @@ namespace TaskManager.DataAccess
         {
         }
     
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    throw new UnintentionalCodeFirstException();
+        //}
     
         public virtual DbSet<ParentTask> ParentTasks { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }

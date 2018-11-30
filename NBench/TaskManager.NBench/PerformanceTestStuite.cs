@@ -1,10 +1,10 @@
-﻿using NBench.Reporting.Targets;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using NBench.Reporting.Targets;
 using NBench.Sdk;
 using NBench.Sdk.Compiler;
 using NUnit.Framework;
-using System;
-using System.Collections;
-using System.Linq;
 
 namespace TaskManager.NBench
 {

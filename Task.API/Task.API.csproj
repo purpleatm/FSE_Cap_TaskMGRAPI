@@ -150,7 +150,6 @@
     <Compile Include="Response\ApiHttpResponse.cs" />
     <Compile Include="Response\BaseResponseMessage.cs" />
     <Compile Include="Response\ErrorStateResponse.cs" />
-    <Compile Include="Response\Header.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

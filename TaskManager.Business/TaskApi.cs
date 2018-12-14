@@ -19,7 +19,7 @@ namespace TaskManager.Business
             if (parentTasks != null && parentTasks.Any())
                 return parentTasks.Select(p => new PARENT_TASK()
                 {
-                    Parent_ID= p.Parent_ID.ToString(),
+                    Parent_ID= p.Parent_ID,
                     Parent_Task= p.Parent_Task
                 }).ToList();
             return null;
@@ -35,13 +35,13 @@ namespace TaskManager.Business
             if (tasks != null && tasks.Any())
                 return tasks.Select(t => new TASK_DETAILS()
                 {
-                    Parent_ID = t.Parent_ID.ToString(),
-                    Task_ID= t.Task_ID.ToString(),
+                    Parent_ID = t.Parent_ID,
+                    Task_ID= t.Task_ID,
                     Task=t.Task1,
-                    Start_Date=t.Start_Date.ToCustomDate(),
-                    End_Date=t.End_Date.ToCustomDate(),
-                    IsActive=t.End_Date.IsActiveTask(),
-                    Priority=t.Priority
+                    Start_Date=t.Start_Date,
+                    End_Date=t.End_Date,
+                    Is_Active=t.End_Date.IsActive(),
+                    Priority=(int)t.Priority
                 }).ToList();
             return null;
         }
@@ -56,17 +56,17 @@ namespace TaskManager.Business
             Task task = new Task();
             if (taskDetail.Parent_ID != null)
             {
-                task.Parent_ID = taskDetail.Parent_ID.ToGuid();
-                var parentTask = DataAccessManager.GetTask(taskDetail.Parent_ID.ToGuid());
+                task.Parent_ID =Convert.ToInt32(taskDetail.Parent_ID);
+                var parentTask = DataAccessManager.GetTask(Convert.ToInt32(taskDetail.Parent_ID));
                 //if (parentTask == null)
                 //{
                 //    //Return invalid parent task
                 //}
             }
-            task.Task_ID = Guid.NewGuid();
+            task.Task_ID = DataAccessManager.GetNextTaskID();
             task.Task1 = taskDetail.Task;
-            task.Start_Date = DateTime.Parse(taskDetail.Start_Date);
-            task.End_Date =DateTime.Parse(taskDetail.End_Date);
+            task.Start_Date = taskDetail.Start_Date;
+            task.End_Date =taskDetail.End_Date;
             task.Priority = taskDetail.Priority;
             return DataAccessManager.AddTask(task);
         }
@@ -82,17 +82,17 @@ namespace TaskManager.Business
             Task task = new Task();
             if (taskDetail.Parent_ID != null)
             {
-                task.Parent_ID = taskDetail.Parent_ID.ToGuid();
-                var parentTask = DataAccessManager.GetTask(taskDetail.Parent_ID.ToGuid());
+                task.Parent_ID = Convert.ToInt32(taskDetail.Parent_ID);
+                var parentTask = DataAccessManager.GetTask(Convert.ToInt32(taskDetail.Task_ID));
                 //if (parentTask == null)
                 //{
                 //    //Return invalid parent task
                 //}
             }
-            task.Task_ID = taskDetail.Task_ID.ToGuid();            
+            task.Task_ID = Convert.ToInt32(taskDetail.Task_ID);            
             task.Task1 = taskDetail.Task;
-            task.Start_Date = taskDetail.Start_Date.ToDateTime();
-            task.End_Date = taskDetail.End_Date.ToDateTime();
+            task.Start_Date = taskDetail.Start_Date;
+            task.End_Date = taskDetail.End_Date;
             task.Priority = taskDetail.Priority;
             return DataAccessManager.UpdateTask(task);
         }
@@ -106,7 +106,7 @@ namespace TaskManager.Business
         public bool UpdateEndTask(TASK_DETAILS taskDetail)
         {
             Task task = new Task();
-            task.Task_ID = taskDetail.Task_ID.ToGuid();
+            task.Task_ID = Convert.ToInt32(taskDetail.Task_ID);
             return DataAccessManager.UpdateEndTask(task);
         }
     }

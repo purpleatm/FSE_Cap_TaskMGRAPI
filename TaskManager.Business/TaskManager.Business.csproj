@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessExtention.cs" />
+    <Compile Include="ProjectApi.cs" />
+    <Compile Include="UserApi.cs" />
     <Compile Include="TaskApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

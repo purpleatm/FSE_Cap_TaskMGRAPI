@@ -69,8 +69,8 @@ namespace TaskManager.NBench
             var addRequest = new Model.TASK_DETAILS()
             {
                 Task = "SecondTask",
-                Start_Date = DateTime.Now.ToString(),
-                End_Date = DateTime.Now.AddMonths(2).ToString(),
+                Start_Date = DateTime.Now,
+                End_Date = DateTime.Now.AddMonths(2),
                 Priority = 3
             };
             var vlsit = taskMgrController.Post(addRequest);
@@ -84,8 +84,8 @@ namespace TaskManager.NBench
         public void UpdateEndTask()
         {
             var request = new TASK_DETAILS();
-            request.Task_ID = "38FE07D7-4A67-4AC5-AAB1-73F7D528ABAC";
-            request.End_Date = DateTime.Now.ToString();
+            request.Task_ID = 1;
+            request.End_Date = DateTime.Now;
             var vlsit = taskMgrController.Put(request);
         }
         

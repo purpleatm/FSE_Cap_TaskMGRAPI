@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace TaskManager.DataAccess
@@ -11,6 +10,7 @@ namespace TaskManager.DataAccess
     /// </summary>
     public class DataAccessManager
     {
+        #region Task data access methods
         /// <summary>
         /// GetParentTask
         /// </summary>
@@ -43,7 +43,7 @@ namespace TaskManager.DataAccess
         /// GetTask
         /// </summary>
         /// <returns>List of Task</returns>
-        public static Task GetTask(Guid taskId)
+        public static Task GetTask(int taskId)
         {
             Task task = null;
             using (var _dbContext = new TaskManagerEntities())
@@ -52,8 +52,7 @@ namespace TaskManager.DataAccess
             }
             return task;
         }
-
-
+        
         /// <summary>
         /// Add Update task
         /// </summary>
@@ -75,7 +74,7 @@ namespace TaskManager.DataAccess
                 if (existingTask == null)
                 {
                     ///Add parent task if not exist
-                    if (task.Parent_ID != null && task.Parent_ID != System.Guid.Empty)
+                    if (task.Parent_ID != null && task.Parent_ID != default(int))
                     {
                         var existingParent = _dbContext.ParentTasks
                         .Where(p => p.Parent_ID == task.Parent_ID)
@@ -84,7 +83,7 @@ namespace TaskManager.DataAccess
                         {
                             _dbContext.ParentTasks.Add(new ParentTask()
                             {
-                                Parent_ID=(System.Guid)task.Parent_ID,
+                                Parent_ID=(int)task.Parent_ID,
                                 Parent_Task= _dbContext.Tasks.SingleOrDefault(s=>s.Task_ID==task.Parent_ID ).Task1
                             });
                         }
@@ -120,7 +119,7 @@ namespace TaskManager.DataAccess
                 if (existingTask != null)
                 {
                     ///Add parent task if not exist
-                    if (task.Parent_ID != null && task.Parent_ID != System.Guid.Empty)
+                    if (task.Parent_ID != null && task.Parent_ID != default(int))
                     {
                         ///Add parent task if not exist
                         var existingParent = _dbContext.ParentTasks
@@ -130,14 +129,14 @@ namespace TaskManager.DataAccess
                         {
                             _dbContext.ParentTasks.Add(new ParentTask()
                             {
-                                Parent_ID = (System.Guid)task.Parent_ID,
+                                Parent_ID = (int)task.Parent_ID,
                                 Parent_Task = task.Task1
                             });
                         }
                     }
 
                     ///Update task
-                    if (!(task.Task_ID == null || task.Task_ID == System.Guid.Empty))
+                    if (!(task.Task_ID == null || task.Task_ID == default(int)))
                         task.Task_ID = existingTask.Task_ID;
 
                     if (string.IsNullOrEmpty(task.Task1))
@@ -190,6 +189,243 @@ namespace TaskManager.DataAccess
             return isUpdateSuccess;
         }
 
+        public static int GetNextTaskID()
+        {
+            int lastId;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                lastId=_dbContext.Tasks.Select(x => x.Task_ID).Max();
+            }
+            return lastId++;
+        }
 
+        public static int GetNextProjectID()
+        {
+            int lastId;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                lastId = _dbContext.Projects.Select(x => x.Project_ID).Max();
+            }
+            return lastId++;
+        }
+        #endregion;
+
+        #region User data access methods
+        /// <summary>
+        /// GetNextUserID
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNextUserID()
+        {
+            int lastId;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                lastId = _dbContext.Users.Select(x => x.User_ID).Max();
+            }
+            return lastId++;
+        }
+
+        /// <summary>
+        /// GetUsers
+        /// </summary>
+        /// <returns></returns>
+        public static List<User> GetUsers()
+        {
+            List<User> users = null;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                users = _dbContext.Users.ToList();
+            }
+            return users;
+        }
+        
+        /// <summary>
+        /// AddUser
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool AddUser(User user)
+        {
+            bool isAddSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                    /// Add user
+                    _dbContext.Users.Add(user);
+                    _dbContext.SaveChanges();
+                    isAddSuccess = true;
+            }
+            return isAddSuccess;
+        }
+
+        /// <summary>
+        /// UpdateUser
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool UpdateUser(User user)
+        {
+            bool isUpdateSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                /// Check if task already exist
+                var existingUser = _dbContext.Users
+                    .Where(c => c.User_ID == user.User_ID)
+                    .SingleOrDefault();
+
+                if (existingUser != null)
+                {
+                    existingUser.FirstName = user.FirstName;
+                    existingUser.LastName = user.LastName;
+                    existingUser.Employee_ID = user.Employee_ID;
+                    _dbContext.SaveChanges();
+                    isUpdateSuccess = true;
+                }
+            }
+            return isUpdateSuccess;
+        }
+
+        /// <summary>
+        /// Delet User
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <returns>
+        /// True - Update transaction done.
+        /// False - No transaction.
+        /// </returns>
+        public static bool DeleteUser(User user)
+        {
+            bool isUpdateSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                /// Check if task already exist
+                var existingUser = _dbContext.Users
+                    .Where(c => c.User_ID == user.User_ID)
+                    .SingleOrDefault();
+                if (existingUser != null)
+                {
+                    _dbContext.Users.Remove(existingUser);
+                    _dbContext.SaveChanges();
+                    isUpdateSuccess = true;
+                }
+            }
+            return isUpdateSuccess;
+        }
+        #endregion;
+
+        #region Project data access methods
+
+        /// <summary>
+        /// Get projects
+        /// </summary>
+        /// <returns></returns>
+        public static List<Project> GetProjects()
+        {
+            List<Project> projects = null;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                projects = _dbContext.Projects.ToList();
+            }
+            return projects;
+        }
+
+        /// <summary>
+        /// Get project id
+        /// </summary>
+        /// <returns></returns>
+        public static Project GetProject(int projectId)
+        {
+            Project project = null;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                project = _dbContext.Projects.SingleOrDefault(p => p.Project_ID == projectId);
+            }
+            return project;
+        }
+
+        /// <summary>
+        /// Get manager details
+        /// </summary>
+        /// <returns></returns>
+        public static List<Project> GetManagerDetails()
+        {
+            List<Project> projects = null;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                projects = _dbContext.Projects.ToList();
+            }
+            return projects;
+        }
+
+        /// <summary>
+        /// Add project
+        /// </summary>
+        /// <param name="project">Project</param>
+        /// <returns></returns>
+        public static bool AddProject(Project project)
+        {
+            bool isAddSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                /// Add user
+                _dbContext.Projects.Add(project);
+                _dbContext.SaveChanges();
+                isAddSuccess = true;
+            }
+            return isAddSuccess;
+        }
+
+        /// <summary>
+        /// Update project
+        /// </summary>
+        /// <param name="project">Project</param>
+        /// <returns></returns>
+        public static bool UpdateProject(Project project)
+        {
+            bool isUpdateSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                /// Check if task already exist
+                var existingProject = _dbContext.Projects
+                    .Where(c => c.Project_ID == project.Project_ID)
+                    .SingleOrDefault();
+
+                if (existingProject != null)
+                {
+                    existingProject.Project1 = project.Project1;
+                    existingProject.Start_Date = project.Start_Date;
+                    existingProject.End_Date = project.End_Date;
+                    existingProject.Priority = project.Priority;
+                    _dbContext.SaveChanges();
+                    isUpdateSuccess = true;
+                }
+            }
+            return isUpdateSuccess;
+        }
+
+        /// <summary>
+        /// Update end project
+        /// </summary>
+        /// <param name="project">Project</param>
+        /// <returns></returns>
+        public static bool UpdateEndProject(Project project)
+        {
+            bool isUpdateSuccess = false;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                /// Check if task already exist
+                var existingProject = _dbContext.Projects
+                    .Where(c => c.Project_ID == project.Project_ID)
+                    .SingleOrDefault();
+
+                if (existingProject != null)
+                {
+                    existingProject.End_Date = project.End_Date;   
+                    _dbContext.SaveChanges();
+                    isUpdateSuccess = true;
+                }
+            }
+            return isUpdateSuccess;
+        }
+        #endregion
     }
 }

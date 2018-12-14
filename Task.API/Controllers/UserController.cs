@@ -14,22 +14,22 @@ namespace Task.API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/Task")]
-    public class TaskController : ApiController
+    public class UserController : ApiController
     {
-        private TaskApi TaskApi { get; set; }
+        private UserApi UserApi { get; set; }
          
-        public TaskController()
+        public UserController()
         {
-            TaskApi = new TaskApi();
+            UserApi = new UserApi();
         }
 
         // GET api/<controller>/<route>
         /// <summary>
-        /// Get parent tasks
+        /// Get users
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("parents")]
+        [Route("users")]
         public HttpResponseMessage Get()
         {
             List<ErrorStateResponse> errors = null;
@@ -37,33 +37,8 @@ namespace Task.API.Controllers
             this.Request.SetConfiguration(new HttpConfiguration());
             try
             {
-                var parentTask = TaskApi.GetParentTask();
+                var parentTask = UserApi.GetUsers();
                 return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, parentTask, errors);
-            }
-            catch (Exception ex)
-            {
-                errors = new List<ErrorStateResponse>();
-                errors.Add(ErrorStateResponse.BuildErrorMessage(ex.Message));
-            }
-            return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.BadRequest, null, errors);
-        }
-
-        // GET api/<controller>/<route>
-        /// <summary>
-        /// Get tasks
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("tasks")]
-        public HttpResponseMessage GetTasks()
-        {
-            List<ErrorStateResponse> errors = null;
-            this.Request = new HttpRequestMessage();
-            this.Request.SetConfiguration(new HttpConfiguration());
-            try
-            {
-                var tasks = TaskApi.GetTaskDetails();
-                return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, tasks, errors);
             }
             catch (Exception ex)
             {
@@ -75,12 +50,12 @@ namespace Task.API.Controllers
 
         // POST api/<controller>
         /// <summary>
-        /// Add task
+        /// Add user
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        public HttpResponseMessage Post(TASK_DETAILS request)
+        public HttpResponseMessage Post(USER_DETAILS request)
         {
             List<ErrorStateResponse> errors = null;
             this.Request = new HttpRequestMessage();
@@ -89,21 +64,15 @@ namespace Task.API.Controllers
             {
                 if (request != null)
                 {
-                    if (request.Task_ID != null && request.Task_ID > 0)
+                    if (request.User_ID != null && request.Task_ID > 0)
                     {
-                        if (request.IsUpdateTaskModelValid())
-                        {
-                            bool transactionStatus = TaskApi.UpdateTaskDetail(request);
+                            bool transactionStatus = UserApi.UpdateUsers(request);
                             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, transactionStatus, errors);
-                        }
                     }
                     else
                     {
-                        if (request.IsAddTaskModelValid())
-                        {
-                            bool transactionStatus = TaskApi.AddTaskDetail(request);
+                            bool transactionStatus = UserApi.AddUsers(request);
                             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, transactionStatus, errors);
-                        }
                     }
                 }
                 ///Model Validation Failed
@@ -118,16 +87,15 @@ namespace Task.API.Controllers
             }
             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.BadRequest, null, errors);
         }
-
-        // PUT api/<controller>/5
+        
         /// <summary>
-        /// Update end task
+        /// Delete task
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPut]
-        [Route("end")]
-        public HttpResponseMessage Put(TASK_DETAILS request)
+        [HttpDelete]
+        [Route("delete")]
+        public HttpResponseMessage Delete(USER_DETAILS request)
         {
             List<ErrorStateResponse> errors = null;
             this.Request = new HttpRequestMessage();
@@ -136,10 +104,10 @@ namespace Task.API.Controllers
             { 
                 if (request != null)
                 {
-                    if (request.Task_ID > 0)
+                    if (request.Task_ID<=0)
                         throw new Exception("Invalid Request");
 
-                    bool transactionStatus = TaskApi.UpdateEndTask(request);
+                    bool transactionStatus = UserApi.DeleteUser(request);
                     return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, transactionStatus, errors);
                 }
                 ///Model Validation Failed
@@ -153,18 +121,6 @@ namespace Task.API.Controllers
                 errors.Add(ErrorStateResponse.BuildErrorMessage(ex.Message));
             }
             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.BadRequest, null, errors);
-        }
-
-        //// GET api/values
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
         }
     }
 }

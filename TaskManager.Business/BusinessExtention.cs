@@ -15,10 +15,10 @@ namespace TaskManager.Business.Extenstion
         /// </summary>
         /// <param name="datetime"></param>
         /// <returns></returns>
-        public static string ToCustomDate(this DateTime datetime)
+        public static string ToCustomDate(this Nullable<DateTime> datetime)
         {
             string pattern = "MM/dd/yyyy";
-            return datetime.ToString(pattern, CultureInfo.InvariantCulture);
+            return datetime?.ToString(pattern, CultureInfo.InvariantCulture);
         }
 
 
@@ -51,7 +51,7 @@ namespace TaskManager.Business.Extenstion
         /// </summary>
         /// <param name="dateTime"></param>
         /// <returns></returns>
-        public static int IsActiveTask(this DateTime dateTime)
+        public static int IsActive(this Nullable<DateTime> dateTime)
         {
             return Convert.ToInt32(dateTime >= System.DateTime.Now);
         }
@@ -62,8 +62,7 @@ namespace TaskManager.Business.Extenstion
         /// <returns></returns>
         public static bool IsAddTaskModelValid(this TASK_DETAILS task)
         {
-            if (task.Parent_ID != null)
-                if (!task.Parent_ID.ToGuid().IsValidGUID())
+            if (task.Parent_ID != null && task.Parent_ID>0)
                     return false;
 
             if (string.IsNullOrEmpty(task.Task))
@@ -72,10 +71,10 @@ namespace TaskManager.Business.Extenstion
             if (task.Priority <= 0)
                 return false;
 
-            if (!(task.Start_Date != null && task.Start_Date.ToDateTime() != System.DateTime.MinValue))
+            if (!(task.Start_Date != null && task.Start_Date != System.DateTime.MinValue))
                 return false;
 
-            if (!(task.End_Date != null && task.End_Date.ToDateTime() != System.DateTime.MinValue))
+            if (!(task.End_Date != null && task.End_Date != System.DateTime.MinValue))
                 return false;
 
             return true;
@@ -88,11 +87,10 @@ namespace TaskManager.Business.Extenstion
         /// <returns></returns>
         public static bool IsUpdateTaskModelValid(this TASK_DETAILS task)
         {
-            if (task.Parent_ID != null)
-                if (!task.Parent_ID.ToGuid().IsValidGUID())
+            if (task.Parent_ID != null && task.Parent_ID>0)
                     return false;
 
-            if (!(task.Task_ID != null && task.Task_ID.ToGuid() != Guid.Empty && task.Task_ID.ToGuid().IsValidGUID()))
+            if (!(task.Task_ID != null && task.Task_ID> 0))
                 return false;
 
             if (string.IsNullOrEmpty(task.Task))
@@ -101,10 +99,10 @@ namespace TaskManager.Business.Extenstion
             if (task.Priority <= 0)
                 return false;
 
-            if (!(task.Start_Date != null && task.Start_Date.ToDateTime() != System.DateTime.MinValue))
+            if (!(task.Start_Date != null && task.Start_Date != System.DateTime.MinValue))
                 return false;
 
-            if (!(task.End_Date != null && task.End_Date.ToDateTime() != System.DateTime.MinValue))
+            if (!(task.End_Date != null && task.End_Date != System.DateTime.MinValue))
                 return false;
 
             return true;

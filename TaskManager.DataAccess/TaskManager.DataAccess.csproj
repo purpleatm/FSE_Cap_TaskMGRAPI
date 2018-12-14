@@ -55,6 +55,9 @@
     <Compile Include="ParentTask.cs">
       <DependentUpon>TaskManagerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>TaskManagerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Task.cs">
       <DependentUpon>TaskManagerModel.tt</DependentUpon>
@@ -73,6 +76,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TaskManagerModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>TaskManagerModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

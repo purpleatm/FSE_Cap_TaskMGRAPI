@@ -20,7 +20,7 @@ namespace TaskManager.DataAccess
             this.Tasks = new HashSet<Task>();
         }
     
-        public System.Guid Parent_ID { get; set; }
+        public int Parent_ID { get; set; }
         public string Parent_Task { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

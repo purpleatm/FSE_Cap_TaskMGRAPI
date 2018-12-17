@@ -15,6 +15,8 @@ namespace TaskManager.NBench
     {
         #region Variables
         TaskController taskMgrController = null;
+        UserController userController = null;
+        ProjectController projectController = null;
         private const int AcceptableMinAddThroughput = 500;
         #endregion
 
@@ -22,8 +24,11 @@ namespace TaskManager.NBench
         public void SetUp(BenchmarkContext context)
         {
             taskMgrController = new TaskController();
+            userController = new UserController();
+            projectController = new ProjectController();
         }
 
+        #region Task load test
         /// <summary>
         /// To get Parent task details
         /// </summary>
@@ -75,7 +80,7 @@ namespace TaskManager.NBench
             };
             var vlsit = taskMgrController.Post(addRequest);
         }
-        
+
         /// <summary>
         /// Update the End task 
         /// </summary        
@@ -88,7 +93,148 @@ namespace TaskManager.NBench
             request.End_Date = DateTime.Now;
             var vlsit = taskMgrController.Put(request);
         }
+        #endregion
+
+        #region User load test
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void GetUsers()
+        {
+            var response = userController.Get();
+            if (response != null)
+            {
+                var content = response.Content;
+                var vlsit = JsonHelper.fromJson<List<USER_DETAILS>>(content.ReadAsStringAsync().Result);
+                var vCount = vlsit?.Count();
+            }
+        }
         
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void InsertUserDetails()
+        {
+            var addRequest = new Model.USER_DETAILS()
+            {
+                First_Name = "test",
+                Last_Name = "test",
+                Task_ID = 1,
+                Project_ID = 1,
+                Employee_ID = 12
+            };
+            var vlsit = userController.Post(addRequest);
+        }
+
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void UpdateUserDetails()
+        {
+            UserController UserController = new UserController();
+            var updateReqeust = new Model.USER_DETAILS()
+            {
+                User_ID = 1,
+                First_Name = "test",
+                Last_Name = "test",
+                Task_ID = 1,
+                Project_ID = 1,
+                Employee_ID = 12
+            };
+            var vlsit = userController.Post(updateReqeust);
+        }
+        
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void DeleteUser()
+        {
+            var request = new Model.USER_DETAILS()
+            {
+                User_ID = 1002,
+            };
+            var vlsit = userController.Delete(request);
+        }
+        #endregion
+
+        #region Project load test
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void GetProjects()
+        {
+            var response = projectController.Get();
+            if (response != null)
+            {
+                var content = response.Content;
+                var vlsit = JsonHelper.fromJson<List<PROJECT_DETAILS>>(content.ReadAsStringAsync().Result);
+                var vCount = vlsit?.Count();
+            }
+        }
+
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void GetProjectNames()
+        {
+            var response = projectController.GetProjcetNames();
+            if (response != null)
+            {
+                var content = response.Content;
+                var vlsit = JsonHelper.fromJson<List<PROJECT_DETAILS>>(content.ReadAsStringAsync().Result);
+                var vCount = vlsit?.Count();
+            }
+        }
+
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void GetProjcetManagers()
+        {
+            var response = projectController.GetProjcetManagers();
+            if (response != null)
+            {
+                var content = response.Content;
+                var vlsit = JsonHelper.fromJson<List<PROJECT_DETAILS>>(content.ReadAsStringAsync().Result);
+                var vCount = vlsit?.Count();
+            }
+        }
+
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void AddprojectDetails()
+        {
+            UserController UserController = new UserController();
+            var addRequest = new Model.PROJECT_DETAILS()
+            {
+                Project = "Project"+new Random().ToString(),
+                Start_Date = DateTime.Now.AddDays(6),
+                End_Date = DateTime.Now.AddDays(10),
+                Priority = 30
+            };
+            var vlsit = projectController.Post(addRequest);
+        }
+
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void UpdateProjectDetails()
+        {
+            UserController UserController = new UserController();
+            var addRequest = new Model.PROJECT_DETAILS()
+            {
+                Project_ID=1,
+                Project = "Project",
+                Start_Date = DateTime.Now.AddDays(6),
+                End_Date = DateTime.Now.AddDays(10),
+                Priority = 30
+            };
+            var vlsit = projectController.Post(addRequest);
+        }
+
+        [PerfBenchmark(RunMode = RunMode.Iterations, NumberOfIterations = 500, TestMode = TestMode.Test, SkipWarmups = true)]
+        [ElapsedTimeAssertion(MaxTimeMilliseconds = 600000)]
+        public void DeleteProject()
+        {
+            var request = new Model.PROJECT_DETAILS()
+            {
+                Project_ID = 1002
+            };
+            var vlsit = projectController.Put(request);
+        }
+        #endregion
 
         [PerfCleanup]
         public void Cleanup(BenchmarkContext context)

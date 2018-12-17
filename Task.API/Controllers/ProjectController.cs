@@ -13,7 +13,7 @@ using TaskManager.Model;
 namespace Task.API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("api/Task")]
+    [RoutePrefix("api/Project")]
     public class ProjectController : ApiController
     {
         private ProjectApi projectApi { get; set; }
@@ -63,6 +63,26 @@ namespace Task.API.Controllers
             try
             {
                 var tasks = projectApi.GetProjectName();
+                return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, tasks, errors);
+            }
+            catch (Exception ex)
+            {
+                errors = new List<ErrorStateResponse>();
+                errors.Add(ErrorStateResponse.BuildErrorMessage(ex.Message));
+            }
+            return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.BadRequest, null, errors);
+        }
+
+        [HttpGet]
+        [Route("projectmanagers")]
+        public HttpResponseMessage GetProjcetManagers()
+        {
+            List<ErrorStateResponse> errors = null;
+            this.Request = new HttpRequestMessage();
+            this.Request.SetConfiguration(new HttpConfiguration());
+            try
+            {
+                var tasks = projectApi.GetManagers();
                 return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, tasks, errors);
             }
             catch (Exception ex)

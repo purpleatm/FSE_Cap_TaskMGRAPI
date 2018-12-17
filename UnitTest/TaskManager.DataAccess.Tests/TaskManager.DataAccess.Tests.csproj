@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ProjectControllerUnitTest.cs" />
+    <Compile Include="Controllers\UserControllerUnitTest.cs" />
     <Compile Include="DataAccess\DataAccessManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\TaskControllerUnitTest.cs" />

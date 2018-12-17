@@ -62,7 +62,8 @@ namespace TaskManager.Business.Extenstion
         /// <returns></returns>
         public static bool IsAddTaskModelValid(this TASK_DETAILS task)
         {
-            if (task.Parent_ID != null && task.Parent_ID>0)
+            if (task.Parent_ID != null)
+                if(task.Parent_ID <= 0)
                     return false;
 
             if (string.IsNullOrEmpty(task.Task))
@@ -87,10 +88,11 @@ namespace TaskManager.Business.Extenstion
         /// <returns></returns>
         public static bool IsUpdateTaskModelValid(this TASK_DETAILS task)
         {
-            if (task.Parent_ID != null && task.Parent_ID>0)
+            if (task.Parent_ID != null)
+                if (task.Parent_ID <= 0)
                     return false;
 
-            if (!(task.Task_ID != null && task.Task_ID> 0))
+            if (!(task.Task_ID != null && task.Task_ID > 0))
                 return false;
 
             if (string.IsNullOrEmpty(task.Task))

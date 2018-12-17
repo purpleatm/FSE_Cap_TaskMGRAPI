@@ -39,7 +39,7 @@ namespace TaskManager.Business
         public bool UpdateUsers(USER_DETAILS userDetail)
         {
             var user = new User();
-            user.User_ID = DataAccessManager.GetNextUserID();
+            user.User_ID = Convert.ToInt32(userDetail.User_ID);
             user.FirstName = userDetail.First_Name;
             user.LastName = userDetail.Last_Name;
             user.Project_ID = userDetail.Project_ID;

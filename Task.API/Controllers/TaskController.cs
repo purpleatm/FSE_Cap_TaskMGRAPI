@@ -136,7 +136,7 @@ namespace Task.API.Controllers
             { 
                 if (request != null)
                 {
-                    if (request.Task_ID > 0)
+                    if (request.Task_ID <= 0)
                         throw new Exception("Invalid Request");
 
                     bool transactionStatus = TaskApi.UpdateEndTask(request);
@@ -155,16 +155,5 @@ namespace Task.API.Controllers
             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.BadRequest, null, errors);
         }
 
-        //// GET api/values
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
     }
 }

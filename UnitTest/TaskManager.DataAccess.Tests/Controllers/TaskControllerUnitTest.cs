@@ -27,16 +27,18 @@ namespace TaskManager.DataAccess.Tests
         public void GetParentsTestMethod()
         {
             TaskController TaskController = new TaskController();
-            Assert.NotNull(TaskController.Get(), "API failed-Internal Error");
-            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.Get().StatusCode.ToString().ToLower(), "API failed-Status error");
+            var response = TaskController.Get();
+            Assert.NotNull(response, "API failed-Internal Error");
+            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), response.StatusCode.ToString().ToLower(), "API failed-Status error");
         }
         
         [Test]
         public void GetTasksTestMethod()
         {
             TaskController TaskController = new TaskController();
-            Assert.NotNull(TaskController.GetTasks(), "API failed-Internal Error");
-            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.GetTasks().StatusCode.ToString().ToLower(), "API failed-Status error");
+            var response = TaskController.GetTasks();
+            Assert.NotNull(response, "API failed-Internal Error");
+            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), response.StatusCode.ToString().ToLower(), "API failed-Status error");
         }
         
         [Test]
@@ -45,13 +47,14 @@ namespace TaskManager.DataAccess.Tests
             TaskController TaskController = new TaskController();
             var addRequest = new Model.TASK_DETAILS()
             {
-                Task ="ThridTask",
+                Task ="four",
                 Start_Date=DateTime.Now,
                 End_Date=DateTime.Now.AddMonths(2),
                 Priority=3
             };
-            Assert.NotNull(TaskController.Post(addRequest), "API failed-Internal Error");
-            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.Post(addRequest).StatusCode.ToString().ToLower(), "API failed-Status error");
+            var response = TaskController.Post(addRequest);
+            Assert.NotNull(response, "API failed-Internal Error");
+            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), response.StatusCode.ToString().ToLower(), "API failed-Status error");
         }
         
         [Test]
@@ -66,8 +69,9 @@ namespace TaskManager.DataAccess.Tests
                 End_Date = DateTime.Now.AddMonths(2),
                 Priority = 2
             };
-            Assert.NotNull(TaskController.Post(addRequest), "API failed-Internal Error");
-            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.Post(addRequest).StatusCode.ToString().ToLower(), "API failed-Status error");
+            var response = TaskController.Post(addRequest);
+            Assert.NotNull(response, "API failed-Internal Error");
+            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), response.StatusCode.ToString().ToLower(), "API failed-Status error");
         }
         
         [Test]
@@ -82,8 +86,9 @@ namespace TaskManager.DataAccess.Tests
                 End_Date = DateTime.Now.AddMonths(2),
                 Priority = 3
             };
+            var response = TaskController.Post(addRequest);
             Assert.NotNull(TaskController.Post(addRequest), "API failed-Internal Error");
-            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.Post(addRequest).StatusCode.ToString().ToLower(), "API failed-Status error");
+            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), response.StatusCode.ToString().ToLower(), "API failed-Status error");
         }
 
         [Test]
@@ -92,11 +97,12 @@ namespace TaskManager.DataAccess.Tests
             TaskController TaskController = new TaskController();
             var addRequest = new Model.TASK_DETAILS()
             {
-                Task_ID = 3,
+                Task_ID = 5,
                 End_Date = DateTime.MinValue
             };
-            Assert.NotNull(TaskController.Put(addRequest), "API failed-Internal Error");
-            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), TaskController.Put(addRequest).StatusCode.ToString().ToLower(), "API failed-Status error");
+            var response = TaskController.Put(addRequest);
+            Assert.NotNull(response, "API failed-Internal Error");
+            Assert.AreEqual(HttpStatusCode.OK.ToString().ToLower(), response.StatusCode.ToString().ToLower(), "API failed-Status error");
         }
     }
 }

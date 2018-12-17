@@ -76,7 +76,8 @@ namespace TaskManager.Business
         public bool EndProejct(PROJECT_DETAILS projectDetail)
         {
             Project project = new Project();
-            project.End_Date = DateTime.MinValue;
+            project.Project_ID = Convert.ToInt32(projectDetail.Project_ID);
+            project.End_Date = DateTime.Now.AddDays(-1);
             return DataAccessManager.UpdateEndProject(project);
         }
     }

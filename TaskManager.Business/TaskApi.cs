@@ -41,7 +41,8 @@ namespace TaskManager.Business
                     Start_Date=t.Start_Date,
                     End_Date=t.End_Date,
                     Is_Active=t.End_Date.IsActive(),
-                    Priority=(int)t.Priority
+                    Priority=(int)t.Priority,
+                    Project_Name = t.Project?.Project1
                 }).ToList();
             return null;
         }

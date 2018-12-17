@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace TaskManager.DataAccess
@@ -34,7 +35,7 @@ namespace TaskManager.DataAccess
             List<Task> parentTasks = null;
             using (var _dbContext = new TaskManagerEntities())
             {
-                parentTasks = _dbContext.Tasks.ToList();
+                parentTasks = _dbContext.Tasks.Include(t=>t.Project).ToList();
             }
             return parentTasks;
         }
@@ -189,25 +190,22 @@ namespace TaskManager.DataAccess
             return isUpdateSuccess;
         }
 
+        /// <summary>
+        /// Get next task ID
+        /// </summary>
+        /// <returns></returns>
         public static int GetNextTaskID()
         {
             int lastId;
             using (var _dbContext = new TaskManagerEntities())
             {
-                lastId=_dbContext.Tasks.Select(x => x.Task_ID).Max();
+                if (!(_dbContext.Tasks != null && _dbContext.Tasks.Any()))
+                    return 1;
+                lastId =_dbContext.Tasks.Select(x => x.Task_ID).Max();
             }
-            return lastId++;
+            return lastId+1;
         }
 
-        public static int GetNextProjectID()
-        {
-            int lastId;
-            using (var _dbContext = new TaskManagerEntities())
-            {
-                lastId = _dbContext.Projects.Select(x => x.Project_ID).Max();
-            }
-            return lastId++;
-        }
         #endregion;
 
         #region User data access methods
@@ -220,9 +218,11 @@ namespace TaskManager.DataAccess
             int lastId;
             using (var _dbContext = new TaskManagerEntities())
             {
+                if (!(_dbContext.Users != null && _dbContext.Users.Any()))
+                    return 1;
                 lastId = _dbContext.Users.Select(x => x.User_ID).Max();
             }
-            return lastId++;
+            return lastId+1;
         }
 
         /// <summary>
@@ -315,6 +315,22 @@ namespace TaskManager.DataAccess
         #region Project data access methods
 
         /// <summary>
+        /// GetNextProjectID
+        /// </summary>
+        /// <returns></returns>
+        public static int GetNextProjectID()
+        {
+            int lastId;
+            using (var _dbContext = new TaskManagerEntities())
+            {
+                if (!(_dbContext.Projects != null && _dbContext.Projects.Any()))
+                    return 1;
+                lastId = _dbContext.Projects.Select(x => x.Project_ID).Max();
+            }
+            return lastId+1;
+        }
+
+        /// <summary>
         /// Get projects
         /// </summary>
         /// <returns></returns>
@@ -323,7 +339,7 @@ namespace TaskManager.DataAccess
             List<Project> projects = null;
             using (var _dbContext = new TaskManagerEntities())
             {
-                projects = _dbContext.Projects.ToList();
+                projects = _dbContext.Projects.Include(p => p.Tasks).ToList();
             }
             return projects;
         }

@@ -13,7 +13,7 @@ using TaskManager.Model;
 namespace Task.API.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("api/Task")]
+    [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
         private UserApi UserApi { get; set; }
@@ -64,7 +64,7 @@ namespace Task.API.Controllers
             {
                 if (request != null)
                 {
-                    if (request.User_ID != null && request.Task_ID > 0)
+                    if (request.User_ID != null && request.User_ID > 0)
                     {
                             bool transactionStatus = UserApi.UpdateUsers(request);
                             return BaseResponseMessage.BuildApiResponse(Request, HttpStatusCode.OK, transactionStatus, errors);

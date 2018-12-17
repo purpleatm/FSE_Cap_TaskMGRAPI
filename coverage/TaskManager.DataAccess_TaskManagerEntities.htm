@@ -15,11 +15,11 @@
 <tr><th>Class:</th><td>TaskManager.DataAccess.TaskManagerEntities</td></tr>
 <tr><th>Assembly:</th><td>TaskManager.DataAccess</td></tr>
 <tr><th>File(s):</th><td><a href="#CUsersAdministratorSourceReposFSE_Cap_TaskMGRAPITaskManagerDataAccessTaskManagerModelContextcs">C:\Users\Administrator\Source\Repos\FSE_Cap_TaskMGRAPI\TaskManager.DataAccess\TaskManagerModel.Context.cs</a></td></tr>
-<tr><th>Covered lines:</th><td>5</td></tr>
-<tr><th>Uncovered lines:</th><td>0</td></tr>
-<tr><th>Coverable lines:</th><td>5</td></tr>
-<tr><th>Total lines:</th><td>31</td></tr>
-<tr><th>Line Coverage:</th><td>100%</td></tr>
+<tr><th>Covered lines:</th><td>7</td></tr>
+<tr><th>Uncovered lines:</th><td>2</td></tr>
+<tr><th>Coverable lines:</th><td>9</td></tr>
+<tr><th>Total lines:</th><td>33</td></tr>
+<tr><th>Line Coverage:</th><td>77.7%</td></tr>
 </tbody>
 </table>
 <h1>Metrics</h1>
@@ -27,6 +27,7 @@
 <thead><tr><th>Method</th><th>Cyclomatic Complexity</th><th>Sequence Coverage</th><th>Branch Coverage</th></tr></thead>
 <tbody>
 <tr><td title="System.Void TaskManager.DataAccess.TaskManagerEntities::.ctor()">.ctor()</td><td>1</td><td>100</td><td>100</td></tr>
+<tr><td title="System.Void TaskManager.DataAccess.TaskManagerEntities::OnModelCreating(System.Data.Entity.DbModelBuilder)">OnModelCreating(...)</td><td>1</td><td>0</td><td>0</td></tr>
 </tbody>
 </table>
 <h1>File(s)</h1>
@@ -52,21 +53,23 @@
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>16</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;partial&nbsp;class&nbsp;TaskManagerEntities&nbsp;:&nbsp;DbContext</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>17</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>18</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;TaskManagerEntities()</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '15', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">15</td><td class="rightmargin right"><code>19</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;base(&quot;name=TaskManagerEntities&quot;)</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '15', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">15</td><td class="rightmargin right"><code>20</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '15', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">15</td><td class="rightmargin right"><code>21</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '22', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">22</td><td class="rightmargin right"><code>19</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;base(&quot;name=TaskManagerEntities&quot;)</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '22', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">22</td><td class="rightmargin right"><code>20</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '22', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">22</td><td class="rightmargin right"><code>21</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>22</code></td><td></td><td class="lightgray"><code></code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>23</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//protected&nbsp;override&nbsp;void&nbsp;OnModelCreating(DbModelBuilder&nbsp;modelBuilder)</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>24</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//{</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>25</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;UnintentionalCodeFirstException();</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>26</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>23</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;protected&nbsp;override&nbsp;void&nbsp;OnModelCreating(DbModelBuilder&nbsp;modelBuilder)</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><code>24</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '0', 'LVS': 'red'}}"><td class="red">&nbsp;</td><td class="leftmargin rightmargin right">0</td><td class="rightmargin right"><code>25</code></td><td></td><td class="lightred"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;UnintentionalCodeFirstException();</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>26</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>27</code></td><td></td><td class="lightgray"><code></code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '19', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">19</td><td class="rightmargin right"><code>28</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;virtual&nbsp;DbSet&lt;ParentTask&gt;&nbsp;ParentTasks&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '32', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">32</td><td class="rightmargin right"><code>29</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;virtual&nbsp;DbSet&lt;Task&gt;&nbsp;Tasks&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>30</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>31</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '25', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">25</td><td class="rightmargin right"><code>28</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;virtual&nbsp;DbSet&lt;ParentTask&gt;&nbsp;ParentTasks&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '29', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">29</td><td class="rightmargin right"><code>29</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;virtual&nbsp;DbSet&lt;Project&gt;&nbsp;Projects&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '39', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">39</td><td class="rightmargin right"><code>30</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;virtual&nbsp;DbSet&lt;Task&gt;&nbsp;Tasks&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '30', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">30</td><td class="rightmargin right"><code>31</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;virtual&nbsp;DbSet&lt;User&gt;&nbsp;Users&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>32</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>33</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
 </tbody>
 </table>
-<div class="footer">Generated by: ReportGenerator 2.1.8.0<br />12/5/2018 - 3:25:09 AM<br /><a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
+<div class="footer">Generated by: ReportGenerator 2.1.8.0<br />12/17/2018 - 4:23:49 AM<br /><a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
 <script type="text/javascript" src="combined.js"></script>
 </body></html>

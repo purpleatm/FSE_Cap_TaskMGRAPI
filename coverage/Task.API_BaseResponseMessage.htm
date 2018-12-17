@@ -15,9 +15,9 @@
 <tr><th>Class:</th><td>Task.API.Response.BaseResponseMessage</td></tr>
 <tr><th>Assembly:</th><td>Task.API</td></tr>
 <tr><th>File(s):</th><td><a href="#CUsersAdministratorSourceReposFSE_Cap_TaskMGRAPITaskAPIResponseBaseResponseMessagecs">C:\Users\Administrator\Source\Repos\FSE_Cap_TaskMGRAPI\Task.API\Response\BaseResponseMessage.cs</a></td></tr>
-<tr><th>Covered lines:</th><td>6</td></tr>
+<tr><th>Covered lines:</th><td>4</td></tr>
 <tr><th>Uncovered lines:</th><td>0</td></tr>
-<tr><th>Coverable lines:</th><td>6</td></tr>
+<tr><th>Coverable lines:</th><td>4</td></tr>
 <tr><th>Total lines:</th><td>19</td></tr>
 <tr><th>Line Coverage:</th><td>100%</td></tr>
 </tbody>
@@ -45,16 +45,16 @@
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>9</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;class&nbsp;BaseResponseMessage</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>10</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>11</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;HttpResponseMessage&nbsp;BuildApiResponse(HttpRequestMessage&nbsp;request,&nbsp;HttpStatusCode&nbsp;statusCode,&nbsp;object</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><code>12</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><code>13</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;resultObj&nbsp;=&nbsp;new&nbsp;ApiHttpResponse(statusCode,&nbsp;result,&nbsp;errorMessage);</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><code>14</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;response&nbsp;=&nbsp;request.CreateResponse(statusCode,&nbsp;resultObj);</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><code>15</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response.Content&nbsp;=&nbsp;response.Content;</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><code>16</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;response;</code></td></tr>
-<tr data-coverage="{'AllTestMethods': {'VC': '12', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">12</td><td class="rightmargin right"><code>17</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>12</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '16', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">16</td><td class="rightmargin right"><code>13</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;resultObj&nbsp;=&nbsp;new&nbsp;ApiHttpResponse(statusCode,&nbsp;result,&nbsp;errorMessage);</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '16', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">16</td><td class="rightmargin right"><code>14</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;response&nbsp;=&nbsp;request.CreateResponse(statusCode,&nbsp;resultObj);</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '16', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">16</td><td class="rightmargin right"><code>15</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response.Content&nbsp;=&nbsp;response.Content;</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '16', 'LVS': 'green'}}"><td class="green">&nbsp;</td><td class="leftmargin rightmargin right">16</td><td class="rightmargin right"><code>16</code></td><td></td><td class="lightgreen"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;response;</code></td></tr>
+<tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>17</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>18</code></td><td></td><td class="lightgray"><code>&nbsp;&nbsp;&nbsp;&nbsp;}</code></td></tr>
 <tr data-coverage="{'AllTestMethods': {'VC': '', 'LVS': 'gray'}}"><td class="gray">&nbsp;</td><td class="leftmargin rightmargin right"></td><td class="rightmargin right"><code>19</code></td><td></td><td class="lightgray"><code>}</code></td></tr>
 </tbody>
 </table>
-<div class="footer">Generated by: ReportGenerator 2.1.8.0<br />12/5/2018 - 3:25:09 AM<br /><a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
+<div class="footer">Generated by: ReportGenerator 2.1.8.0<br />12/17/2018 - 4:23:49 AM<br /><a href="http://www.palmmedia.de">www.palmmedia.de</a></div></div>
 <script type="text/javascript" src="combined.js"></script>
 </body></html>
